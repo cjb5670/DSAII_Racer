@@ -230,6 +230,22 @@ public:
 	vector3 Normalize(vector3);
 
 	vector3 CrossProduct(vector3 m_vA, vector3 m_vB);
+
+	/*
+	USAGE: Updates the current viewpoint of the camera
+	ARGUMENTS:
+	-	vector3 a_v3TargetPos -> The location of the object the camera is looking at
+	-	quaternion a_qTargetOrient -> The current orientation of the object it's looking at
+	OUTPUT: ---
+	*/
+	void Update(vector3 a_v3TargetPos, quaternion a_qTargetOrient);
+
+	/*
+	USAGE: Eases the camera from it's current viewpoint to it's intended viewpoint
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void Ease();
 };
 
 } //namespace Simplex

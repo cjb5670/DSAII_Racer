@@ -34,6 +34,12 @@ void Application::Update(void)
 	//Is the first person camera active?
 	CameraRotation();
 
+	//updates the camera. Replace v3TempLocation with the location of the player, and qTempOrientation with it's orientation
+	vector3 v3TempLocation = vector3();
+	quaternion qTempOrientation = quaternion();
+
+	m_pCamera->Update(v3TempLocation, qTempOrientation);
+
 	//Add objects to the Manager
 	for (int j = -50; j < 50; j += 2)
 	{

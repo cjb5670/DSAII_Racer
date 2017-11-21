@@ -189,3 +189,16 @@ vector3 Simplex::MyCamera::CrossProduct(vector3 m_vA, vector3 m_vB)
 	vector3 retVec = vector3((m_vA.y * m_vB.z) - (m_vA.z*m_vB.y), (m_vA.z * m_vB.x) - (m_vA.x * m_vB.z), (m_vA.x * m_vB.y) - (m_vA.y * m_vB.x));
 	return retVec;
 }
+
+void Simplex::MyCamera::Update(vector3 a_v3TargetPos, quaternion a_qTargetOrient)
+{
+	SetPositionTargetAndUp(
+		a_v3TargetPos + (a_qTargetOrient * vector3(0.0f, 5.0f, -10.0f)),	//Position
+		a_v3TargetPos + vector3(0.0f, 4.5f, 0.0f),							//Target
+		AXIS_Y);															//Up
+}
+
+void Simplex::MyCamera::Ease()
+{
+	//NO FUNCTIONALITY YET
+}

@@ -74,29 +74,7 @@ void Application::ProcessKeyPressed(sf::Event a_event)
 	case sf::Keyboard::Space:
 		break;
 
-	case sf::Keyboard::W:
-		m_pCamera->SetPositionTargetAndUp(m_pCamera->GetPosition() + m_pCamera->GetForward(), 
-			m_pCamera->GetTarget() + m_pCamera->GetForward(), 
-			m_pCamera->GetUp());
-		break;
-
-	case sf::Keyboard::S:
-		m_pCamera->SetPositionTargetAndUp(m_pCamera->GetPosition() - m_pCamera->GetForward(), 
-			m_pCamera->GetTarget() - m_pCamera->GetForward(), 
-			m_pCamera->GetUp());
-		break;
-
-	case sf::Keyboard::A:
-		m_pCamera->SetPositionTargetAndUp(m_pCamera->GetPosition() + m_pCamera->GetLeft(), 
-			m_pCamera->GetTarget() + m_pCamera->GetLeft(), 
-			m_pCamera->GetUp());
-		break;
-
-	case sf::Keyboard::D:
-		m_pCamera->SetPositionTargetAndUp(m_pCamera->GetPosition() + m_pCamera->GetRight(), 
-			m_pCamera->GetTarget() + m_pCamera->GetRight(), 
-			m_pCamera->GetUp());
-		break;
+	
 	}
 	//gui
 	gui.io.KeysDown[a_event.key.code] = true;
@@ -392,10 +370,7 @@ void Application::CameraRotation(float a_fSpeed)
 		m_pCamera->fAngleX += fDeltaMouse * a_fSpeed;
 	}
 	//Change the Yaw and the Pitch of the camera
-	m_pCamera->SetTarget((m_pCamera->GetPosition() + 
-		vector3((cos(m_pCamera->fAngleX) * sin(m_pCamera->fAngleY)),
-		-sin(m_pCamera->fAngleX), 
-		(cos(m_pCamera->fAngleX) * cos(m_pCamera->fAngleY)))));
+	
 	SetCursorPos(CenterX, CenterY);//Position the mouse in the center
 	
 }
