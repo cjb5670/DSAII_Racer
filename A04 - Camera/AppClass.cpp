@@ -68,6 +68,10 @@ void Application::Display(void)
 	
 	//draw gui
 	DrawGUI();
+
+	//Get a timer
+	static uint uClock = m_pSystem->GenClock();
+	fTimer = (int)m_pSystem->GetTimeSinceStart(uClock);
 	
 	//end the current frame (internally swaps the front and back buffers)
 	m_pWindow->display();
