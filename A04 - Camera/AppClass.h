@@ -21,6 +21,7 @@ class Application
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //Programmer
 	int fTimer;
+	int fTimerResettable;
 	int fTimerOffset;
 	uint clockHolder;
 private:
