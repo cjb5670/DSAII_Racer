@@ -377,12 +377,21 @@ void Application::CameraRotation(float a_fSpeed)
 //Keyboard
 void Application::ProcessKeyboard(void)
 {
-	/*
-	This is used for things that are continuously happening,
-	for discreet on/off use ProcessKeyboardPressed/Released
-	*/
-	//TODO: Put code here?
-	//if ()
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		m_v3PlayerPos += m_qPlayerQuat * m_v3PlayerSpeed; //this calculation is substituting for a Forward Vector
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		m_v3PlayerPos += m_qPlayerQuat * -m_v3PlayerSpeed;
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		m_qPlayerQuat = m_qPlayerQuat * glm::angleAxis(5.0f, AXIS_Y);
+	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		m_qPlayerQuat = m_qPlayerQuat * glm::angleAxis(-5.0f, AXIS_Y);
+	}
 
 #pragma region Camera Position
 	float fSpeed = 0.1f;

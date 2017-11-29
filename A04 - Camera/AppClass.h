@@ -16,12 +16,18 @@ namespace Simplex
 
 class Application
 {
+	EntityManager* m_pEntityMngr = nullptr; //Entity Manager
 	MyCamera* m_pCamera = nullptr; //Camera class
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //Programmer
 	int fTimer;
 private:
 	static ImGuiObject gui; //GUI object
+
+	//MOVE THESE INTO A SOLVER EVENTUALLY
+	vector3 m_v3PlayerPos = vector3(); //The player's position
+	quaternion m_qPlayerQuat = quaternion(); //the player's current orientation
+	vector3 m_v3PlayerSpeed = vector3(0.0f, 0.0f, 0.3f); //the speed of the player as represented as a v3 pointing forward
 
 	uint m_uRenderCallCount = 0; //count of render calls per frame
 	uint m_uControllerCount = 0; //count of controllers connected

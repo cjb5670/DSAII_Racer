@@ -14,10 +14,24 @@ void Application::InitVariables(void)
 
 	//init the camera
 	m_pCamera = new MyCamera();
-	m_pCamera->SetPositionTargetAndUp(
-			vector3(0.0f, 3.0f, 20.0f), //Where my eyes are
-			vector3(0.0f, 3.0f, 19.0f), //where what I'm looking at is
-			AXIS_Y);					//what is up
+	
+
+	//player
+	//Entity Manager
+	m_pEntityMngr = EntityManager::GetInstance();
+
+	//Replace this file name with proper file name, also make the ID different. This ID is used once again in Update with SetModelMatrix
+	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
+	matrix4 m4Position = glm::translate(m_v3PlayerPos);
+	matrix4 m4Rotation = glm::toMat4(m_qPlayerQuat);
+	m_pEntityMngr->SetModelMatrix(m4Position * m4Rotation);
+
+	//Set the position and target of the camera
+	m_pCameraMngr->SetPositionTargetAndUp(
+		vector3(0.0f, 5.0f, -10.0f),				//Position
+		m_v3PlayerPos + vector3(0.0f, 4.5f, 0.0f),	//Target
+		AXIS_Y);									//Up
+
 
 	//Get the singleton
 	m_pMyMeshMngr = MyMeshManager::GetInstance();
@@ -34,11 +48,14 @@ void Application::Update(void)
 	//Is the first person camera active?
 	CameraRotation();
 
+	//Sets player position and rotation
+	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat), "Steve");
+
 	//updates the camera. Replace v3TempLocation with the location of the player, and qTempOrientation with it's orientation
 	vector3 v3TempLocation = vector3();
 	quaternion qTempOrientation = quaternion();
 
-	m_pCamera->Update(v3TempLocation, qTempOrientation);
+	m_pCamera->Update(m_v3PlayerPos, m_qPlayerQuat);
 
 	//Add objects to the Manager
 	for (int j = -50; j < 50; j += 2)
