@@ -21,6 +21,8 @@ class Application
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //Programmer
 	int fTimer;
+	int fTimerOffset;
+	uint clockHolder;
 private:
 	static ImGuiObject gui; //GUI object
 
@@ -78,6 +80,26 @@ public:
 	OUTPUT: ---
 	*/
 	void Init(String a_sApplicationName, uint a_uWidth, uint a_uHeight, bool a_bFullscreen, bool a_bBorderless);
+	/*
+	USAGE: Initializes the timer
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	uint InitTimer();
+	/*
+	USAGE: Resets the timer
+	ARGUMENTS:
+	-	uint clock -> A reference to the clock
+	OUTPUT: ---
+	*/
+	void ResetTimer(uint clock);
+	/*
+	USAGE: Gets the current time
+	ARGUMENTS:
+	-	uint clock -> A reference to the clock
+	OUTPUT: Gives the current time of the fTimer
+	*/
+	uint GetTime(uint clock);
 	/*
 	USAGE: Runs the main loop of this class DO NOT OVERRIDE
 	ARGUMENTS: ---
