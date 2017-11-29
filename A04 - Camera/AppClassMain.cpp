@@ -72,12 +72,6 @@ void Application::ReleaseControllers(void)
 	}
 	m_uControllerCount = 0;
 }
-uint Simplex::Application::GetTime(uint clock)
-{
-
-	return fTimer;
-
-}
 void Application::Run(void)
 {
 	//Initialize the system with default values it was not done in the Main.cpp
@@ -256,18 +250,7 @@ void Application::Init(String a_sApplicationName, uint a_uWidth, uint a_uHeight,
 	//Initializated flag
 	bInitializated = true;
 }
-uint Simplex::Application::InitTimer()
-{
-	//Get a timer
-	static uint uClock = m_pSystem->GenClock();
-	fTimer = (int)m_pSystem->GetTimeSinceStart(uClock);
 
-	return uClock;
-}
-void Simplex::Application::ResetTimer(uint uClock)
-{
-	uClock = m_pSystem->GenClock();
-}
 void Application::InitWindow(String a_sWindowName)
 {
 	uint uStyle = sf::Style::Default;

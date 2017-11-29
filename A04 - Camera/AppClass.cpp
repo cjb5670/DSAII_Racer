@@ -51,10 +51,10 @@ void Application::Update(void)
 	//Sets player position and rotation
 	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat), "Steve");
 
-	// Sample reset the timer
+	// DELETE ME
+	// Sample reset the timer to show functionality. Use ResetTimer method to reset the timer.
 	if (fTimer % 3 == 0) {
-		fTimerOffset = fTimer;
-		fTimerResettable = 0; // for clarity
+		ResetTimer();
 	}
 
 	//updates the camera. Replace v3TempLocation with the location of the player, and qTempOrientation with it's orientation
@@ -93,8 +93,7 @@ void Application::Display(void)
 	DrawGUI();
 
 	//Initialize a timer
-	static uint uClock = m_pSystem->GenClock();
-	fTimer = (int)m_pSystem->GetTimeSinceStart(uClock);
+	InitTimer();
 	fTimerResettable = fTimer - fTimerOffset;
 
 	//end the current frame (internally swaps the front and back buffers)
@@ -110,4 +109,18 @@ void Application::Release(void)
 
 	//release GUI
 	ShutdownGUI();
+}
+
+// Initializes the timer
+void Application::InitTimer()
+{
+	//Make a timer
+	static uint uClock = m_pSystem->GenClock();
+	fTimer = (int)m_pSystem->GetTimeSinceStart(uClock);
+}
+// Resets the timer
+void Application::ResetTimer()
+{
+	fTimerOffset = fTimer;
+	fTimerResettable = 0; // solves a 1 frame bug
 }
