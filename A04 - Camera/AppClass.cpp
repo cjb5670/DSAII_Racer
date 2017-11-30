@@ -53,15 +53,19 @@ void Application::Update(void)
 
 	// DELETE ME
 	// Sample reset the timer to show functionality. Use ResetTimer method to reset the timer.
-	if (fTimer % 3 == 0) {
+	/*if (fTimer % 3 == 0) {
 		ResetTimer();
-	}
+	}*/
 
 	//updates the camera. Replace v3TempLocation with the location of the player, and qTempOrientation with it's orientation
 	vector3 v3TempLocation = vector3();
 	quaternion qTempOrientation = quaternion();
 
 	m_pCamera->Update(m_v3PlayerPos, m_qPlayerQuat);
+	if (CheckFinish(m_v3PlayerPos, vector3(0, 0, 10), 1.0f))
+	{
+		ResetTimer();
+	}
 
 	//Add objects to the Manager
 	for (int j = -50; j < 50; j += 2)
@@ -71,6 +75,9 @@ void Application::Update(void)
 			m_pMyMeshMngr->AddConeToRenderList(glm::translate(vector3(i, 0.0f, j)));
 		}
 	}
+
+	m_pMyMeshMngr->AddCubeToRenderList(glm::translate(vector3(0.0f, 0.0f, 10.0f)));
+
 }
 void Application::Display(void)
 {
@@ -123,4 +130,15 @@ void Application::ResetTimer()
 {
 	fTimerOffset = fTimer;
 	fTimerResettable = 0; // solves a 1 frame bug
+}
+
+bool Application::CheckFinish(vector3 posA, vector3 posB, float buffer)
+{
+	if (posA.x + buffer > posB.x - buffer && posA.x - buffer < posB.x + buffer && 
+		posA.y + buffer > posB.y - buffer && posA.y - buffer < posB.y + buffer && 
+		posA.z + buffer > posB.z - buffer && posA.z - buffer < posB.z + buffer )
+	{
+		return true;
+	}
+	return false;
 }

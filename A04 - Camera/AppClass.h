@@ -37,6 +37,8 @@ class Application
 	OUTPUT: ---
 	*/
 	void ResetTimer();
+
+	bool CheckFinish(vector3 posA, vector3 posB, float buffer);
 private:
 	static ImGuiObject gui; //GUI object
 
