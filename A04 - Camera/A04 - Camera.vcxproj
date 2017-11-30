@@ -108,6 +108,8 @@ xcopy "$(SolutionDir)include\Simplex\Shaders" "$(SolutionDir)_Binary\Shaders" /y
     <ClCompile Include="ControllerConfiguration.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MyCamera.cpp" />
+    <ClCompile Include="MyEntity.cpp" />
+    <ClCompile Include="MyEntityManager.cpp" />
     <ClCompile Include="MyMesh.cpp" />
     <ClCompile Include="MyMeshManager.cpp" />
   </ItemGroup>
@@ -122,6 +124,8 @@ xcopy "$(SolutionDir)include\Simplex\Shaders" "$(SolutionDir)_Binary\Shaders" /y
     <ClInclude Include="Definitions.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="MyCamera.h" />
+    <ClInclude Include="MyEntity.h" />
+    <ClInclude Include="MyEntityManager.h" />
     <ClInclude Include="MyMesh.h" />
     <ClInclude Include="MyMeshManager.h" />
   </ItemGroup>

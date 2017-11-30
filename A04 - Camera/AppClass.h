@@ -11,12 +11,14 @@ Date: 2017/05
 #include "imgui\ImGuiObject.h"
 
 #include "MyMeshManager.h"
+#include "MyEntityManager.h"
+
 namespace Simplex
 {
 
 class Application
 {
-	EntityManager* m_pEntityMngr = nullptr; //Entity Manager
+	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
 	MyCamera* m_pCamera = nullptr; //Camera class
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //Programmer

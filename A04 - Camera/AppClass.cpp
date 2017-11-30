@@ -18,13 +18,18 @@ void Application::InitVariables(void)
 
 	//player
 	//Entity Manager
-	m_pEntityMngr = EntityManager::GetInstance();
+	m_pEntityMngr = MyEntityManager::GetInstance();
 
 	//Replace this file name with proper file name, also make the ID different. This ID is used once again in Update with SetModelMatrix
-	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
-	matrix4 m4Position = glm::translate(m_v3PlayerPos);
-	matrix4 m4Rotation = glm::toMat4(m_qPlayerQuat);
-	m_pEntityMngr->SetModelMatrix(m4Position * m4Rotation);
+	m_pEntityMngr->AddEntity("Racer\\bbill\\itemKiller.obj", "itemKiller");
+
+
+	//add an entity
+	m_pEntityMngr->AddEntity("Racer\\bowser\\HandTrack.obj", "HandTrack");
+	//set the model matrix
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f, -20.0f, 0.0f)));
+
+
 
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
@@ -49,7 +54,7 @@ void Application::Update(void)
 	CameraRotation();
 
 	//Sets player position and rotation
-	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat), "Steve");
+	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(0.012f, 0.012f, 0.012f)), "itemKiller");
 
 	// DELETE ME
 	// Sample reset the timer to show functionality. Use ResetTimer method to reset the timer.
@@ -68,15 +73,22 @@ void Application::Update(void)
 	}
 
 	//Add objects to the Manager
-	for (int j = -50; j < 50; j += 2)
-	{
-		for (int i = -50; i < 50; i += 2)
-		{
-			m_pMyMeshMngr->AddConeToRenderList(glm::translate(vector3(i, 0.0f, j)));
-		}
-	}
+	//for (int j = -50; j < 50; j += 2)
+	//{
+	//	for (int i = -50; i < 50; i += 2)
+	//	{
+	//		m_pMyMeshMngr->AddConeToRenderList(glm::translate(vector3(i, 0.0f, j)));
+	//	}
+	//}
+
 
 	m_pMyMeshMngr->AddCubeToRenderList(glm::translate(vector3(0.0f, 0.0f, 10.0f)));
+
+	//Update Entity Manager
+	m_pEntityMngr->Update();
+
+	//Add objects to render list
+	m_pEntityMngr->AddEntityToRenderList(-1, true);
 
 }
 void Application::Display(void)
@@ -108,6 +120,9 @@ void Application::Display(void)
 }
 void Application::Release(void)
 {
+	//release the entity manager
+	m_pEntityMngr->ReleaseInstance();
+
 	//release the singleton
 	MyMeshManager::ReleaseInstance();
 
