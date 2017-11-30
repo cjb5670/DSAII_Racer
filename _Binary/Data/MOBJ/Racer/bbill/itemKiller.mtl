@@ -1,0 +1,9 @@
+# Created by Every File Explorer
+
+newmtl mat_itemKiller
+Ka 1 1 1
+Kd 1 1 1
+Ks 0.3490196 0.3490196 0.3490196
+d 1
+map_Kd Tex/itemKiller.png
+
