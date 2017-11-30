@@ -378,7 +378,18 @@ void Application::CameraRotation(float a_fSpeed)
 void Application::ProcessKeyboard(void)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		m_v3PlayerPos += m_qPlayerQuat * m_v3PlayerSpeed; //this calculation is substituting for a Forward Vector
+		if(acceleration <= 2.5f)	acceleration += 0.005f;
+		m_v3PlayerPos += m_qPlayerQuat * m_v3PlayerSpeed * acceleration; //this calculation is substituting for a Forward Vector
+	}
+	else {
+
+		if (acceleration > 1) {
+			acceleration -= 0.04f;
+			m_v3PlayerPos += m_qPlayerQuat * m_v3PlayerSpeed * acceleration; //this calculation is substituting for a Forward Vector
+		}
+		else {
+			acceleration = 1;
+		}
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
@@ -386,11 +397,11 @@ void Application::ProcessKeyboard(void)
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		m_qPlayerQuat = m_qPlayerQuat * glm::angleAxis(5.0f, AXIS_Y);
+		m_qPlayerQuat = m_qPlayerQuat * glm::angleAxis(1.5f, AXIS_Y);
 	}
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		m_qPlayerQuat = m_qPlayerQuat * glm::angleAxis(-5.0f, AXIS_Y);
+		m_qPlayerQuat = m_qPlayerQuat * glm::angleAxis(-1.5f, AXIS_Y);
 	}
 
 #pragma region Camera Position

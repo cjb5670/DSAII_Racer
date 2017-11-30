@@ -177,6 +177,7 @@ private:
 #pragma endregion
 
 #pragma region Application Controls
+	float acceleration = 1;
 	/*
 	USAGE: Manage constant keyboard state
 	ARGUMENTS: ---
