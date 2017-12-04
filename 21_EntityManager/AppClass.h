@@ -27,7 +27,8 @@ class Application
 	vector3 m_v3Creeper; //position of the creeper
 	quaternion m_qCreeper; //orientation for the creeper
 
-	MyCamera* m_pCamera = nullptr; //Camera class
+	Camera* m_pCamera = nullptr; //Camera class
+	MyCamera* m_pMyCamera = nullptr; //MyCamera class
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = ""; //Programmer
 	int fTimer;

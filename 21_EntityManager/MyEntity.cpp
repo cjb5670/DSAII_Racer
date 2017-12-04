@@ -20,7 +20,7 @@ void Simplex::MyEntity::SetAxisVisible(bool a_bSetAxis) { m_bSetAxis = a_bSetAxi
 //  MyEntity
 void Simplex::MyEntity::Init(void)
 {
-	m_pMeshMngr = MeshManager::GetInstance();
+	m_pMeshMngr = MyMeshManager::GetInstance();
 	m_bInMemory = false;
 	m_bSetAxis = false;
 	m_pModel = nullptr;
@@ -101,8 +101,8 @@ void Simplex::MyEntity::AddToRenderList(bool a_bDrawRigidBody)
 	if(a_bDrawRigidBody)
 		m_pRigidBody->AddToRenderList();
 
-	if (m_bSetAxis)
-		m_pMeshMngr->AddAxisToRenderList(m_m4ToWorld);
+	//if (m_bSetAxis)
+		//m_pMeshMngr->AddAxisToRenderList(m_m4ToWorld);
 }
 bool Simplex::MyEntity::IsColliding(MyEntity* const other)
 {

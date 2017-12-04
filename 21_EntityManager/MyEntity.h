@@ -6,6 +6,7 @@ Date: 2017/07
 #define __MYENTITY_H_
 
 #include "Simplex\Simplex.h"
+#include "MyMeshManager.h"
 
 namespace Simplex
 {
@@ -21,7 +22,7 @@ class MyEntity
 	RigidBody* m_pRigidBody = nullptr; //Rigid Body associated with this Entity
 
 	matrix4 m_m4ToWorld = IDENTITY_M4; //Model matrix associated with this Entity
-	MeshManager* m_pMeshMngr = nullptr; //For rendering shapes
+	MyMeshManager* m_pMeshMngr = nullptr; //For rendering shapes
 
 	static std::map<String, MyEntity*> m_IDMap; //a map of the unique ID's
 

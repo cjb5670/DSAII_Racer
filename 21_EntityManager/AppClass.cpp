@@ -20,7 +20,7 @@ void Application::InitVariables(void)
 	m_pEntityMngr = MyEntityManager::GetInstance();
 
 	//init the camera
-	m_pCamera = new MyCamera();
+	m_pCamera = new Camera();
 	
 	//creeper
 	m_pEntityMngr->AddEntity("Minecraft\\Creeper.obj", "Creeper");
@@ -63,8 +63,8 @@ void Application::InitVariables(void)
 		AXIS_Y);									//Up
 
 	//Get the singleton
+	m_pMeshMngr = MeshManager::GetInstance();
 	m_pMyMeshMngr = MyMeshManager::GetInstance();
-	m_pMyMeshMngr->SetCamera(m_pCamera);
 }
 void Application::Update(void)
 {
@@ -80,14 +80,18 @@ void Application::Update(void)
 	//Sets player position and rotation
 	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(0.012f, 0.012f, 0.012f)), "itemKiller");
 
-	m_pCamera->Update(m_v3PlayerPos, m_qPlayerQuat);
-
+	//updates the camera
+	m_pCameraMngr->SetPositionTargetAndUp(
+		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 5.0f, -10.0f)),		//Position
+		m_v3PlayerPos + vector3(0.0f, 4.5f, 0.0f),							//Target
+		AXIS_Y);															//Up
+	
 	if (CheckFinish(m_v3PlayerPos, vector3(0, 0, 10), 1.0f))
 	{
 		ResetTimer();
 	}
 
-	m_pMyMeshMngr->AddCubeToRenderList(glm::translate(vector3(0.0f, 0.0f, 10.0f)));
+	m_pMeshMngr->AddCubeToRenderList(glm::translate(vector3(0.0f, 0.0f, 10.0f)), C_WHITE, 1);
 
 
 	//Set model matrix to the creeper
