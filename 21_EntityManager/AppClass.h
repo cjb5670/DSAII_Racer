@@ -35,6 +35,21 @@ class Application
 	int fTimerOffset;
 	uint clockHolder;
 		
+	/*
+	USAGE: Initializes the timer
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void InitTimer();
+	/*
+	USAGE: Resets the timer
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void ResetTimer();
+
+	bool CheckFinish(vector3 posA, vector3 posB, float buffer);
+
 private:
 
 	static ImGuiObject gui; //GUI object

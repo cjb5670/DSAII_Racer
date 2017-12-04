@@ -44,7 +44,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Exercises", "Exercises", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "A04 - Camera", "A04 - Camera\A04 - Camera.vcxproj", "{08A11DA8-4582-4AE0-90FE-929F44487E65}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "21_EntityManager", "\\banner.main.ad.rit.edu\students\src3363\IGMProfile\Documents\DSAII_Racer\21_EntityManager\21_EntityManager.vcxproj", "{B29A7F3F-25ED-41BB-93DB-A79A918FAFDC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "21_EntityManager", "21_EntityManager\21_EntityManager.vcxproj", "{B29A7F3F-25ED-41BB-93DB-A79A918FAFDC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

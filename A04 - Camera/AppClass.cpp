@@ -56,12 +56,6 @@ void Application::Update(void)
 	//Sets player position and rotation
 	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(0.012f, 0.012f, 0.012f)), "itemKiller");
 
-	// DELETE ME
-	// Sample reset the timer to show functionality. Use ResetTimer method to reset the timer.
-	/*if (fTimer % 3 == 0) {
-		ResetTimer();
-	}*/
-
 	//updates the camera. Replace v3TempLocation with the location of the player, and qTempOrientation with it's orientation
 	vector3 v3TempLocation = vector3();
 	quaternion qTempOrientation = quaternion();

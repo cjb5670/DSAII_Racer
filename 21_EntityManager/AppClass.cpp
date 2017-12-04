@@ -81,12 +81,15 @@ void Application::Update(void)
 	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(0.012f, 0.012f, 0.012f)), "itemKiller");
 
 	m_pCamera->Update(m_v3PlayerPos, m_qPlayerQuat);
-	/*
+
 	if (CheckFinish(m_v3PlayerPos, vector3(0, 0, 10), 1.0f))
 	{
 		ResetTimer();
 	}
-	*/
+
+	m_pMyMeshMngr->AddCubeToRenderList(glm::translate(vector3(0.0f, 0.0f, 10.0f)));
+
+
 	//Set model matrix to the creeper
 	matrix4 mCreeper = glm::translate(m_v3Creeper) * ToMatrix4(m_qCreeper) * ToMatrix4(m_qArcBall);
 	m_pEntityMngr->SetModelMatrix(mCreeper, "Creeper");
@@ -124,6 +127,10 @@ void Application::Display(void)
 	
 	//draw gui
 	DrawGUI();
+
+	//Initialize a timer
+	InitTimer();
+	fTimerResettable = fTimer - fTimerOffset;
 	
 	//end the current frame (internally swaps the front and back buffers)
 	m_pWindow->display();
@@ -135,4 +142,29 @@ void Application::Release(void)
 
 	//release GUI
 	ShutdownGUI();
+}
+
+// Initializes the timer
+void Application::InitTimer()
+{
+	//Make a timer
+	static uint uClock = m_pSystem->GenClock();
+	fTimer = (int)m_pSystem->GetTimeSinceStart(uClock);
+}
+// Resets the timer
+void Application::ResetTimer()
+{
+	fTimerOffset = fTimer;
+	fTimerResettable = 0; // solves a 1 frame bug
+}
+
+bool Application::CheckFinish(vector3 posA, vector3 posB, float buffer)
+{
+	if (posA.x + buffer > posB.x - buffer && posA.x - buffer < posB.x + buffer &&
+		posA.y + buffer > posB.y - buffer && posA.y - buffer < posB.y + buffer &&
+		posA.z + buffer > posB.z - buffer && posA.z - buffer < posB.z + buffer)
+	{
+		return true;
+	}
+	return false;
 }
