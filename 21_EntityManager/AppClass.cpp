@@ -23,38 +23,12 @@ void Application::InitVariables(void)
 	m_pCamera = new Camera();
 	
 	//creeper
-	m_pEntityMngr->AddEntity("Minecraft\\Creeper.obj", "Creeper");
-	m_pEntityMngr->SetAxisVisibility(true, "Creeper"); //set visibility of the entity's axis
+	m_pEntityMngr->AddEntity("Racer\\bbill\\itemKiller.obj", "itemKiller");
+	m_pEntityMngr->SetAxisVisibility(true, "itemKiller"); //set visibility of the entity's axis
 
 	//steve
-	m_pEntityMngr->AddEntity("Minecraft\\Steve.obj", "Steve");
-	m_pEntityMngr->SetAxisVisibility(true, "Steve"); //set visibility of the entity's axis
-
-	//add an entity
-	m_pEntityMngr->AddEntity("Minecraft\\Cow.obj", "Cow");
-	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(2.0f,-1.5f,-1.0f)));
-	m_pEntityMngr->SetAxisVisibility(true);
-
-	//add an entity
-	m_pEntityMngr->AddEntity("Minecraft\\Zombie.obj", "Zombie");
-	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f, -2.5f, 0.0f)));
-	m_pEntityMngr->SetAxisVisibility(true);
-
-	//add an entity
-	m_pEntityMngr->AddEntity("Minecraft\\Pig.obj", "Pig");
-	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-2.0f,-1.0f,-1.0f)));
-	m_pEntityMngr->SetAxisVisibility(true);
-
-	//Our Models
-	m_pEntityMngr->AddEntity("Racer\\bbill\\itemKiller.obj", "itemKiller");
-	//add an entity
 	m_pEntityMngr->AddEntity("Racer\\bowser\\HandTrack.obj", "HandTrack");
-	//set the model matrix
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f, -20.0f, 0.0f)));
-
+	m_pEntityMngr->SetAxisVisibility(true, "HandTrack"); //set visibility of the entity's axis
 
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
@@ -96,18 +70,12 @@ void Application::Update(void)
 
 	//Set model matrix to the creeper
 	matrix4 mCreeper = glm::translate(m_v3Creeper) * ToMatrix4(m_qCreeper) * ToMatrix4(m_qArcBall);
-	m_pEntityMngr->SetModelMatrix(mCreeper, "Creeper");
+	m_pEntityMngr->SetModelMatrix(mCreeper, "itemKiller");
 	
 
 	//Set model matrix to Steve
 	matrix4 mSteve = glm::translate(vector3(2.5f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, -55.0f, AXIS_Z);
-	m_pEntityMngr->SetModelMatrix(mSteve, "Steve");
-
-
-	//Move the last entity added slowly to the right
-	matrix4 lastMatrix = m_pEntityMngr->GetModelMatrix();// get the model matrix of the last added
-	lastMatrix *= glm::translate(IDENTITY_M4, vector3(0.01f, 0.0f, 0.0f)); //translate it
-	m_pEntityMngr->SetModelMatrix(lastMatrix); //return it to its owner
+	m_pEntityMngr->SetModelMatrix(mSteve, "HandTrack");
 
 	//Update Entity Manager
 	m_pEntityMngr->Update();
