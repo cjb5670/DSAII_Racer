@@ -13,6 +13,7 @@ Date: 2017/06
 #include "MyEntityManager.h"
 #include "MyCamera.h"
 #include "MyMeshManager.h"
+#include "MyOctant.h"
 
 namespace Simplex
 {
@@ -23,7 +24,7 @@ class Application
 	quaternion m_qPlayerQuat = quaternion(); //the player's current orientation
 	vector3 m_v3PlayerSpeed = vector3(0.0f, 0.0f, 0.3f); //the speed of the player as represented as a v3 pointing forward
 
-	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
+	EntityManager* m_pEntityMngr = nullptr; //Entity Manager
 	vector3 m_v3Creeper; //position of the creeper
 	quaternion m_qCreeper; //orientation for the creeper
 
@@ -35,6 +36,10 @@ class Application
 	int fTimerResettable;
 	int fTimerOffset;
 	uint clockHolder;
+
+	bool displayOctree = true;
+
+	MyOctant* m_pRoot = nullptr;
 		
 	/*
 	USAGE: Initializes the timer

@@ -17,7 +17,7 @@ void Application::InitVariables(void)
 	m_pLightMngr->SetPosition(vector3(0.0f, 3.0f, 13.0f), 1); //set the position of first light (0 is reserved for ambient light)
 	
 	//Entity Manager
-	m_pEntityMngr = MyEntityManager::GetInstance();
+	m_pEntityMngr = EntityManager::GetInstance();
 
 	//init the camera
 	m_pCamera = new Camera();
@@ -63,6 +63,8 @@ void Application::InitVariables(void)
 	//Get the singleton
 	m_pMeshMngr = MeshManager::GetInstance();
 	m_pMyMeshMngr = MyMeshManager::GetInstance();
+
+	m_pRoot = new MyOctant(3, 5);
 }
 void Application::Update(void)
 {
@@ -120,6 +122,10 @@ void Application::Display(void)
 
 	//clear the render list
 	m_pMeshMngr->ClearRenderList();
+
+	//draw octree
+	if (displayOctree)
+		m_pRoot->Display(C_YELLOW);
 	
 	//draw gui
 	DrawGUI();
