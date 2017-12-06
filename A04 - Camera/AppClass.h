@@ -18,7 +18,7 @@ namespace Simplex
 
 class Application
 {
-	MyEntityManager* m_pEntityMngr = nullptr; //Entity Manager
+	EntityManager* m_pEntityMngr = nullptr; //Entity Manager
 	MyCamera* m_pCamera = nullptr; //Camera class
 	MyMeshManager* m_pMyMeshMngr = nullptr; //My Mesh Manager
 	String m_sProgrammer = "Alberto Bobadilla - labigm@rit.edu"; //Programmer
