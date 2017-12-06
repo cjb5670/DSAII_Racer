@@ -156,6 +156,7 @@ void Application::DrawGUI(void)
 			ImGui::Text("	 F2: Orthographic X\n");
 			ImGui::Text("	 F3: Orthographic Y\n");
 			ImGui::Text("	 F4: Orthographic Z\n");
+			ImGui::Text("	 F5: Toggle Octree Display\n");
 			ImGui::Separator();
 			ImGui::Text("  Left: Move Creeper\n");
 			ImGui::Text(" Right: Move Creeper\n");
