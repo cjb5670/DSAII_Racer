@@ -18,7 +18,7 @@ void Application::InitVariables(void)
 
 	//player
 	//Entity Manager
-	m_pEntityMngr = MyEntityManager::GetInstance();
+	m_pEntityMngr = EntityManager::GetInstance();
 
 	//Replace this file name with proper file name, also make the ID different. This ID is used once again in Update with SetModelMatrix
 	m_pEntityMngr->AddEntity("Racer\\bbill\\itemKiller.obj", "itemKiller");
