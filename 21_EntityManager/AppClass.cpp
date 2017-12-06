@@ -56,7 +56,7 @@ void Application::Update(void)
 
 	//updates the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
-		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 5.0f, -10.0f)),		//Position
+		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 5.0f, -15.0f)),		//Position
 		m_v3PlayerPos + vector3(0.0f, 4.5f, 0.0f),							//Target
 		AXIS_Y);															//Up
 	
@@ -69,12 +69,12 @@ void Application::Update(void)
 
 
 	//Set model matrix to the creeper
-	matrix4 mCreeper = glm::translate(m_v3Creeper) * ToMatrix4(m_qCreeper) * ToMatrix4(m_qArcBall);
-	m_pEntityMngr->SetModelMatrix(mCreeper, "itemKiller");
+	matrix4 mBill = glm::translate(m_v3PlayerPos) * ToMatrix4(m_qPlayerQuat) * glm::scale(vector3(0.1f));
+	m_pEntityMngr->SetModelMatrix(mBill, "itemKiller");
 	
 
 	//Set model matrix to Steve
-	matrix4 mSteve = glm::translate(vector3(2.5f, 0.0f, 0.0f)) * glm::rotate(IDENTITY_M4, -55.0f, AXIS_Z);
+	matrix4 mSteve = glm::translate(vector3());
 	m_pEntityMngr->SetModelMatrix(mSteve, "HandTrack");
 
 	//Update Entity Manager
