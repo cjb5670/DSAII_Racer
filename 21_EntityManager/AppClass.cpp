@@ -34,25 +34,25 @@ void Application::InitVariables(void)
 	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half1");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-5.0f, 0.0f, -30.0f)));
-	m_pEntityMngr->SetAxisVisibility(true);
+	//m_pEntityMngr->SetAxisVisibility(true);
 
 	//wall2
 	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half2");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-5.0f, 0.0f, -10.0f)));
-	m_pEntityMngr->SetAxisVisibility(true);
+	//m_pEntityMngr->SetAxisVisibility(true);
 
 	//wall3
-	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half2");
+	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half3");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-35.0f, 0.0f, 5.0f)) * glm::rotate(IDENTITY_M4, 90.0f, AXIS_Y));
-	m_pEntityMngr->SetAxisVisibility(true);
+	//m_pEntityMngr->SetAxisVisibility(true);
 
 	//wall4
-	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half2");
+	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half4");
 	//set the model matrix and visibility of the last entity added
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-15.0f, 0.0f, 5.0f)) * glm::rotate(IDENTITY_M4, 90.0f, AXIS_Y));
-	m_pEntityMngr->SetAxisVisibility(true);
+	//m_pEntityMngr->SetAxisVisibility(true);
 
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
