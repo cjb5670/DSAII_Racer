@@ -44,6 +44,9 @@ void Application::InitVariables(void)
 }
 void Application::Update(void)
 {
+	SafeDelete(m_pRoot);
+	m_pRoot = new MyOctant(3, 5);
+
 	//Update the system so it knows how much time has passed since the last call
 	m_pSystem->Update();
 
