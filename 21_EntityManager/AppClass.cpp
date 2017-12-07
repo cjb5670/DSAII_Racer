@@ -42,6 +42,7 @@ void Application::InitVariables(void)
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-1.0f, -1.5f, -35.0f)));
 	m_pEntityMngr->SetAxisVisibility(true);
 
+
 	//wall2
 	m_pEntityMngr->AddEntity("Racer\\walls\\bigwall.obj", "bigwall2");
 	//set the model matrix and visibility of the last entity added
@@ -66,6 +67,7 @@ void Application::InitVariables(void)
 	m_pEntityMngr->SetModelMatrix(glm::translate(vector3()));
 	m_pEntityMngr->SetAxisVisibility(true);
 
+
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
 		vector3(0.0f, 5.0f, -10.0f),				//Position
@@ -80,6 +82,9 @@ void Application::InitVariables(void)
 }
 void Application::Update(void)
 {
+	SafeDelete(m_pRoot);
+	m_pRoot = new MyOctant(3, 5);
+
 	//Update the system so it knows how much time has passed since the last call
 	m_pSystem->Update();
 

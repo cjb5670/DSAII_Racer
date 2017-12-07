@@ -385,6 +385,32 @@ void Simplex::MyOctant::Init(void)
 		else if (m_pEntityMngr->GetEntity(i)->GetPosition().z < m_v3Min.z)
 			m_v3Min.z = m_pEntityMngr->GetEntity(i)->GetPosition().z;
 	}
+	//many checks cuz crunch time
+	if (m_v3Max.y > m_v3Max.x)
+		m_v3Max.x = m_v3Max.y;
+	if (m_v3Max.z > m_v3Max.x)
+		m_v3Max.x = m_v3Max.z;
+	if (m_v3Max.x > m_v3Max.y)
+		m_v3Max.y = m_v3Max.x;
+	if (m_v3Max.z > m_v3Max.y)
+		m_v3Max.y = m_v3Max.z;
+	if (m_v3Max.x > m_v3Max.z)
+		m_v3Max.z = m_v3Max.x;
+	if (m_v3Max.y > m_v3Max.z)
+		m_v3Max.z = m_v3Max.y;
+
+	if (m_v3Min.y < m_v3Min.x)
+		m_v3Min.x = m_v3Min.y;
+	if (m_v3Min.z < m_v3Min.x)
+		m_v3Min.x = m_v3Min.z;
+	if (m_v3Min.x < m_v3Min.y)
+		m_v3Min.y = m_v3Min.x;
+	if (m_v3Min.z < m_v3Min.y)
+		m_v3Min.y = m_v3Min.z;
+	if (m_v3Min.x < m_v3Min.z)
+		m_v3Min.z = m_v3Min.x;
+	if (m_v3Min.y < m_v3Min.z)
+		m_v3Min.z = m_v3Min.y;
 
 	m_v3Center = (m_v3Max + m_v3Min) / 2.0f;
 	m_fSize = abs(m_v3Max.x) + abs(m_v3Min.x);
