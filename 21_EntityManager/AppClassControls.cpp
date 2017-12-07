@@ -407,13 +407,15 @@ void Application::ProcessKeyboard(void)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		if (acceleration <= 2.5f)	acceleration += 0.005f;
-		m_v3PlayerPos += m_qPlayerQuat * m_v3PlayerSpeed * acceleration; //this calculation is substituting for a Forward Vector
+		forward = m_qPlayerQuat * m_v3PlayerSpeed * acceleration;
+		m_v3PlayerPos += forward; //this calculation is substituting for a Forward Vector
 	}
 	else {
 
 		if (acceleration > 1) {
 			acceleration -= 0.04f;
-			m_v3PlayerPos += m_qPlayerQuat * m_v3PlayerSpeed * acceleration; //this calculation is substituting for a Forward Vector
+			forward = m_qPlayerQuat * m_v3PlayerSpeed * acceleration;
+			m_v3PlayerPos += forward; //this calculation is substituting for a Forward Vector
 		}
 		else {
 			acceleration = 1;

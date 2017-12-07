@@ -54,7 +54,7 @@ class Application
 	*/
 	void ResetTimer();
 
-	bool CheckFinish(vector3 posA, vector3 posB, float buffer);
+	bool CheckFinish(vector3 posA, vector3 posB, float Abuffx, float Bbuffx, float buffy, float Abuffz, float Bbuffz);
 
 private:
 
@@ -207,6 +207,7 @@ private:
 #pragma region Application Controls
 
 	float acceleration = 1;
+	vector3 forward = vector3(0, 0, 0);
 
 	/*
 	USAGE: Manage constant keyboard state

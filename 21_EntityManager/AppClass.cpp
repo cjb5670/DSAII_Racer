@@ -81,15 +81,17 @@ void Application::Update(void)
 	CameraRotation();
 
 	//Sets player position and rotation
-	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(0.012f, 0.012f, 0.012f)), "itemKiller");
+	float scaleFactor = 0.012f;
+	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(scaleFactor, scaleFactor, scaleFactor)), "itemKiller");
 
 	//updates the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
 		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 5.0f, -15.0f)),		//Position
 		m_v3PlayerPos + vector3(0.0f, 4.5f, 0.0f),							//Target
 		AXIS_Y);															//Up
+	vector3 Playersize = m_pEntityMngr->GetEntity(0)->GetRigidBody()->GetHalfWidth();
 	
-	if (CheckFinish(m_v3PlayerPos, vector3(0, 0, 10), 1.0f))
+	if (CheckFinish(m_v3PlayerPos, vector3(0, 0, 10), Playersize.x * scaleFactor, 0.5f, 1.0f, Playersize.y * scaleFactor, 5.0f))
 	{
 		ResetTimer();
 	}
@@ -163,11 +165,11 @@ void Application::ResetTimer()
 	fTimerResettable = 0; // solves a 1 frame bug
 }
 
-bool Application::CheckFinish(vector3 posA, vector3 posB, float buffer)
+bool Application::CheckFinish(vector3 posA, vector3 posB, float Abuffx, float Bbuffx, float buffy, float Abuffz, float Bbuffz)
 {
-	if (posA.x + buffer > posB.x - buffer && posA.x - buffer < posB.x + buffer &&
-		posA.y + buffer > posB.y - buffer && posA.y - buffer < posB.y + buffer &&
-		posA.z + buffer > posB.z - buffer && posA.z - buffer < posB.z + buffer)
+	if (posA.x + Abuffx > posB.x - Bbuffx && posA.x - Abuffx < posB.x + Bbuffx &&
+		posA.y + buffy > posB.y - buffy && posA.y - buffy < posB.y + buffy &&
+		posA.z + Abuffz > posB.z - Bbuffz && posA.z - Abuffz < posB.z + Bbuffz)
 	{
 		return true;
 	}
