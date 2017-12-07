@@ -21,6 +21,9 @@ class MyEntity
 	Model* m_pModel = nullptr; //Model associated with this Entity
 	RigidBody* m_pRigidBody = nullptr; //Rigid Body associated with this Entity
 
+	uint m_nDimensionCount = 0; //tells how many dimensions this entity lives in
+	uint* m_DimensionArray = nullptr; //Dimensions on which this entity is located
+
 	matrix4 m_m4ToWorld = IDENTITY_M4; //Model matrix associated with this Entity
 	MyMeshManager* m_pMeshMngr = nullptr; //For rendering shapes
 
@@ -119,6 +122,30 @@ public:
 	OUTPUT: ---
 	*/
 	String GetUniqueID(void);
+	/*
+	USAGE: Adds a dimension
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void Simplex::MyEntity::AddDimension(uint a_uDimension);
+	/*
+	USAGE: Checks if something is in a dimension
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	bool Simplex::MyEntity::IsInDimension(uint a_uDimension);
+	/*
+	USAGE: Sorts the dimensions array
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	void Simplex::MyEntity::SortDimensions(void);
+	/*
+	USAGE: Checks if 2 things share a dimension
+	ARGUMENTS: ---
+	OUTPUT: ---
+	*/
+	bool Simplex::MyEntity::SharesDimension(MyEntity* const a_pOther);
 	/*
 	USAGE: Sets the visibility of the axis of this Entity
 	ARGUMENTS: bool a_bSetAxis = true -> axis visible?
