@@ -129,6 +129,8 @@ void Application::DrawGUI(void)
 	//m_pMeshMngr->Print("						");
 	m_pMeshMngr->Print("FPS:");
 	m_pMeshMngr->PrintLine(std::to_string(m_pSystem->GetFPS()), C_RED);
+	m_pMeshMngr->Print("Lap: ");
+	m_pMeshMngr->PrintLine(std::to_string(Application::lapNum + 1), C_RED);
 	m_pMeshMngr->Print("Lap Time: ");
 	m_pMeshMngr->PrintLine(std::to_string(Application::fTimerResettable), C_RED);
 #pragma endregion

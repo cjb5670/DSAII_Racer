@@ -20,9 +20,10 @@ namespace Simplex
 	//Adding Application to the Simplex namespace
 class Application
 {
-	vector3 m_v3PlayerPos = vector3(); //The player's position
+	vector3 m_v3PlayerPos = vector3(0, 0, 10); //The player's position
 	quaternion m_qPlayerQuat = quaternion(); //the player's current orientation
 	vector3 m_v3PlayerSpeed = vector3(0.0f, 0.0f, 0.3f); //the speed of the player as represented as a v3 pointing forward
+	uint lapNum = 0;
 
 	EntityManager* m_pEntityMngr = nullptr; //Entity Manager
 	vector3 m_v3Creeper; //position of the creeper
@@ -53,6 +54,7 @@ class Application
 	OUTPUT: ---
 	*/
 	void ResetTimer();
+	void CloseGame();
 
 	bool CheckFinish(vector3 posA, vector3 posB, float Abuffx, float Bbuffx, float buffy, float Abuffz, float Bbuffz);
 
@@ -206,7 +208,7 @@ private:
 
 #pragma region Application Controls
 
-	float acceleration = 1;
+	float acceleration = 0;
 	vector3 forward = vector3(0, 0, 0);
 
 	/*

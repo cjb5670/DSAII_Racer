@@ -95,26 +95,74 @@ void Application::Update(void)
 	CameraRotation();
 
 	//Sets player position and rotation
-	float scaleFactor = 0.012f;
-	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat) * glm::scale(vector3(scaleFactor, scaleFactor, scaleFactor)), "itemKiller");
+	float scaleFactor = 0.006f;
+	m_pEntityMngr->SetModelMatrix(glm::translate(m_v3PlayerPos) * glm::toMat4(m_qPlayerQuat), /* glm::scale(vector3(scaleFactor, scaleFactor, scaleFactor)),*/ "itemKiller");
 
 	//updates the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
 		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 0.9f, -1.0f)),		//Position
 		m_v3PlayerPos + vector3(0.0f, 0.7f, 0.0f),							//Target
 		AXIS_Y);															//Up
-	vector3 Playersize = m_pEntityMngr->GetEntity(0)->GetRigidBody()->GetHalfWidth();
+	vector3 Playersize = m_pEntityMngr->GetEntity(0)->GetRigidBody()->GetHalfWidth() * scaleFactor;
+	vector3 GatePos = m_pEntityMngr->GetEntity(2)->GetRigidBody()->GetCenterGlobal();
+	vector3 GateSize = m_pEntityMngr->GetEntity(2)->GetRigidBody()->GetHalfWidth();
 	
-	if (CheckFinish(m_v3PlayerPos, vector3(0, 0, 10), Playersize.x * scaleFactor, 0.5f, 1.0f, Playersize.y * scaleFactor, 5.0f))
+	// Finish Line
+	if (CheckFinish(m_v3PlayerPos, GatePos, Playersize.x  , GateSize.x, 1.0f, Playersize.z , GateSize.z))
 	{
+		if (fTimerResettable > 1)
+		{
+			lapNum++;
+		}
 		ResetTimer();
+		
 	}
 
-	m_pMeshMngr->AddCubeToRenderList(glm::translate(vector3(-3.0f, 0.0f, 7.5f)), C_WHITE, 1);
+	// Wall 1
+	vector3 Wall1Pos = m_pEntityMngr->GetEntity(3)->GetRigidBody()->GetCenterGlobal();
+	vector3 Wall1Size = m_pEntityMngr->GetEntity(3)->GetRigidBody()->GetHalfWidth();
+	if (CheckFinish(m_v3PlayerPos, Wall1Pos, Playersize.x, Wall1Size.x, 1.0f, Playersize.z, Wall1Size.z))
+	{
+		CloseGame();
+	}
+
+	// Wall 2
+	vector3 Wall2Pos = m_pEntityMngr->GetEntity(4)->GetRigidBody()->GetCenterGlobal();
+	vector3 Wall2Size = m_pEntityMngr->GetEntity(4)->GetRigidBody()->GetHalfWidth();
+	if (CheckFinish(m_v3PlayerPos, Wall2Pos, Playersize.x, Wall2Size.x, 1.0f, Playersize.z, Wall2Size.z))
+	{
+		CloseGame();
+	}
+
+	// Wall 3
+	vector3 Wall3Pos = m_pEntityMngr->GetEntity(5)->GetRigidBody()->GetCenterGlobal();
+	vector3 Wall3Size = m_pEntityMngr->GetEntity(5)->GetRigidBody()->GetHalfWidth();
+	if (CheckFinish(m_v3PlayerPos, Wall3Pos, Playersize.x, Wall3Size.z, 1.0f, Playersize.z, Wall3Size.x))
+	{
+		CloseGame();
+	}
+
+	// Wall 4
+	vector3 Wall4Pos = m_pEntityMngr->GetEntity(6)->GetRigidBody()->GetCenterGlobal();
+	vector3 Wall4Size = m_pEntityMngr->GetEntity(6)->GetRigidBody()->GetHalfWidth();
+	if (CheckFinish(m_v3PlayerPos, Wall4Pos, Playersize.x, Wall4Size.z, 1.0f, Playersize.z, Wall4Size.x))
+	{
+		CloseGame();
+	}
+
+	// Center
+	//vector3 CenterPos = m_pEntityMngr->GetEntity(7)->GetRigidBody()->GetCenterGlobal();
+	//vector3 CenterSize = m_pEntityMngr->GetEntity(7)->GetRigidBody()->GetHalfWidth();
+
+	//if (CheckFinish(m_v3PlayerPos, CenterPos, Playersize.x, CenterSize.x, 1.0f, Playersize.z, CenterSize.z))
+	//{
+	//	ResetTimer();
+	//}
+
 
 
 	//Set model matrix to the creeper
-	matrix4 mBill = glm::translate(m_v3PlayerPos + vector3(0, 0.58f, 0)) * ToMatrix4(m_qPlayerQuat) * glm::scale(vector3(0.006f));
+	matrix4 mBill = glm::translate(m_v3PlayerPos + vector3(0, 0.58f, 0)) * ToMatrix4(m_qPlayerQuat) * glm::scale(vector3(scaleFactor));
 	m_pEntityMngr->SetModelMatrix(mBill, "itemKiller");
 
 	//Update Entity Manager
@@ -172,6 +220,15 @@ void Application::ResetTimer()
 {
 	fTimerOffset = fTimer;
 	fTimerResettable = 0; // solves a 1 frame bug
+	if (lapNum > 2)
+	{
+		CloseGame();
+	}
+}
+
+void Simplex::Application::CloseGame()
+{
+	m_bRunning = false;
 }
 
 bool Application::CheckFinish(vector3 posA, vector3 posB, float Abuffx, float Bbuffx, float buffy, float Abuffz, float Bbuffz)
