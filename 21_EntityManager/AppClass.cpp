@@ -108,7 +108,8 @@ void Application::Update(void)
 		ResetTimer();
 	}
 
-	m_pMeshMngr->AddCubeToRenderList(glm::translate(vector3(-3.0f, 0.0f, 7.5f)), C_WHITE, 1);
+	// Marker for finish line
+	//m_pMeshMngr->AddCubeToRenderList(glm::translate(vector3(-3.0f, 0.0f, 7.5f)), C_WHITE, 1);
 
 
 	//Set model matrix to the creeper
