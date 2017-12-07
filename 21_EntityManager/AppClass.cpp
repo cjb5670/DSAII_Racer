@@ -22,37 +22,51 @@ void Application::InitVariables(void)
 	//init the camera
 	m_pCamera = new Camera();
 	
-	//creeper
+	//player
 	m_pEntityMngr->AddEntity("Racer\\bbill\\itemKiller.obj", "itemKiller");
 	m_pEntityMngr->SetAxisVisibility(true, "itemKiller"); //set visibility of the entity's axis
 
-	//steve
-	m_pEntityMngr->AddEntity("Racer\\bowser\\HandTrack.obj", "HandTrack");
-	m_pEntityMngr->SetAxisVisibility(true, "HandTrack"); //set visibility of the entity's axis
+	//map
+	m_pEntityMngr->AddEntity("Racer\\bowser\\flatMap.obj", "flatMap");
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3()));
+	m_pEntityMngr->SetAxisVisibility(true);
+
+	//gate
+	m_pEntityMngr->AddEntity("Racer\\bowser\\gate.obj", "gate");
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(0.0f, -1.0f, 0.0f)));
+	m_pEntityMngr->SetAxisVisibility(true);
 
 	//wall1
-	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half1");
+	m_pEntityMngr->AddEntity("Racer\\walls\\bigwall.obj", "bigwall1");
 	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-5.0f, 0.0f, -30.0f)));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-1.0f, -1.5f, -35.0f)));
+	m_pEntityMngr->SetAxisVisibility(true);
+
 
 	//wall2
-	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half2");
+	m_pEntityMngr->AddEntity("Racer\\walls\\bigwall.obj", "bigwall2");
 	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-5.0f, 0.0f, -10.0f)));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-1.0f, -1.5f, -11.0f)));
+	m_pEntityMngr->SetAxisVisibility(true);
 
 	//wall3
-	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half3");
+	m_pEntityMngr->AddEntity("Racer\\walls\\bigwall.obj", "bigwall3");
 	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-35.0f, 0.0f, 5.0f)) * glm::rotate(IDENTITY_M4, 90.0f, AXIS_Y));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-37.0f, -1.5f, -4.0f)) * glm::rotate(IDENTITY_M4, 90.0f, AXIS_Y));
+	m_pEntityMngr->SetAxisVisibility(true);
 
 	//wall4
-	m_pEntityMngr->AddEntity("Racer\\walls\\Outerwall_half.obj", "OuterWall_half4");
+	m_pEntityMngr->AddEntity("Racer\\walls\\bigwall.obj", "bigwall4");
 	//set the model matrix and visibility of the last entity added
-	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-15.0f, 0.0f, 5.0f)) * glm::rotate(IDENTITY_M4, 90.0f, AXIS_Y));
-	//m_pEntityMngr->SetAxisVisibility(true);
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3(-13.5f, -1.5f, -4.0f)) * glm::rotate(IDENTITY_M4, 90.0f, AXIS_Y));
+	m_pEntityMngr->SetAxisVisibility(true);
+
+	//center
+	m_pEntityMngr->AddEntity("Racer\\walls\\center.obj", "center");
+	//set the model matrix and visibility of the last entity added
+	m_pEntityMngr->SetModelMatrix(glm::translate(vector3()));
+	m_pEntityMngr->SetAxisVisibility(true);
+
 
 	//Set the position and target of the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
@@ -86,8 +100,8 @@ void Application::Update(void)
 
 	//updates the camera
 	m_pCameraMngr->SetPositionTargetAndUp(
-		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 5.0f, -15.0f)),		//Position
-		m_v3PlayerPos + vector3(0.0f, 4.5f, 0.0f),							//Target
+		m_v3PlayerPos + (m_qPlayerQuat * vector3(0.0f, 0.9f, -1.0f)),		//Position
+		m_v3PlayerPos + vector3(0.0f, 0.7f, 0.0f),							//Target
 		AXIS_Y);															//Up
 	vector3 Playersize = m_pEntityMngr->GetEntity(0)->GetRigidBody()->GetHalfWidth();
 	
@@ -96,17 +110,12 @@ void Application::Update(void)
 		ResetTimer();
 	}
 
-	m_pMeshMngr->AddCubeToRenderList(glm::translate(vector3(0.0f, 0.0f, 10.0f)), C_WHITE, 1);
+	m_pMeshMngr->AddCubeToRenderList(glm::translate(vector3(-3.0f, 0.0f, 7.5f)), C_WHITE, 1);
 
 
 	//Set model matrix to the creeper
-	matrix4 mBill = glm::translate(m_v3PlayerPos) * ToMatrix4(m_qPlayerQuat) * glm::scale(vector3(0.1f));
+	matrix4 mBill = glm::translate(m_v3PlayerPos + vector3(0, 0.58f, 0)) * ToMatrix4(m_qPlayerQuat) * glm::scale(vector3(0.006f));
 	m_pEntityMngr->SetModelMatrix(mBill, "itemKiller");
-	
-
-	//Set model matrix to Steve
-	matrix4 mSteve = glm::translate(vector3());
-	m_pEntityMngr->SetModelMatrix(mSteve, "HandTrack");
 
 	//Update Entity Manager
 	m_pEntityMngr->Update();

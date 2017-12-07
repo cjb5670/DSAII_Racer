@@ -186,6 +186,51 @@ void Simplex::MyEntityManager::AddEntity(String a_sFileName, String a_sUniqueID)
 		m_uEntityCount = m_entityList.size();
 	}
 }
+void Simplex::MyEntityManager::AddDimension(uint a_uIndex, uint a_uDimension)
+{
+	//if the list is empty return
+	if (m_uEntityCount == 0)
+		return;
+
+	//if the index is larger than the number of entries we are asking for the last one
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	return m_entityList[a_uIndex]->AddDimension(a_uDimension);
+}
+void Simplex::MyEntityManager::AddDimension(String a_sUniqueID, uint a_uDimension)
+{
+	//Get the entity
+	MyEntity* pTemp = MyEntity::GetEntity(a_sUniqueID);
+	//if the entity exists
+	if (pTemp)
+	{
+		pTemp->AddDimension(a_uDimension);
+	}
+}
+bool Simplex::MyEntityManager::SharesDimension(uint a_uIndex, MyEntity* const a_pOther)
+{
+	//if the list is empty return
+	if (m_uEntityCount == 0)
+		return false;
+
+	//if the index is larger than the number of entries we are asking for the last one
+	if (a_uIndex >= m_uEntityCount)
+		a_uIndex = m_uEntityCount - 1;
+
+	return m_entityList[a_uIndex]->SharesDimension(a_pOther);
+}
+bool Simplex::MyEntityManager::SharesDimension(String a_sUniqueID, MyEntity* const a_pOther)
+{
+	//Get the entity
+	MyEntity* pTemp = MyEntity::GetEntity(a_sUniqueID);
+	//if the entity exists
+	if (pTemp)
+	{
+		return pTemp->SharesDimension(a_pOther);
+	}
+	return false;
+}
 void Simplex::MyEntityManager::RemoveEntity(uint a_uIndex)
 {
 	//if the list is empty return
@@ -236,6 +281,7 @@ MyEntity* Simplex::MyEntityManager::GetEntity(uint a_uIndex)
 
 	return m_entityList[a_uIndex];
 }
+Simplex::uint Simplex::MyEntityManager::GetEntityCount(void) { return m_uEntityCount; }
 void Simplex::MyEntityManager::AddEntityToRenderList(uint a_uIndex, bool a_bRigidBody)
 {
 	//if out of bounds will do it for all

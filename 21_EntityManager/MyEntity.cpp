@@ -133,3 +133,65 @@ void Simplex::MyEntity::GenUniqueID(String& a_sUniqueID)
 	}
 	return;
 }
+void Simplex::MyEntity::AddDimension(uint a_uDimension)
+{
+	//we need to check that this dimension is not already allocated in the list
+	if (IsInDimension(a_uDimension))
+		return;//it is, so there is no need to add
+
+			   //insert the entry
+	uint* pTemp;
+	pTemp = new uint[m_nDimensionCount + 1];
+	if (m_DimensionArray)
+	{
+		memcpy(pTemp, m_DimensionArray, sizeof(uint) * m_nDimensionCount);
+		delete[] m_DimensionArray;
+		m_DimensionArray = nullptr;
+	}
+	pTemp[m_nDimensionCount] = a_uDimension;
+	m_DimensionArray = pTemp;
+
+	++m_nDimensionCount;
+
+	SortDimensions();
+}
+bool Simplex::MyEntity::IsInDimension(uint a_uDimension)
+{
+	//see if the entry is in the set
+	for (uint i = 0; i < m_nDimensionCount; i++)
+	{
+		if (m_DimensionArray[i] == a_uDimension)
+			return true;
+	}
+	return false;
+}
+void Simplex::MyEntity::SortDimensions(void)
+{
+	std::sort(m_DimensionArray, m_DimensionArray + m_nDimensionCount);
+}
+bool Simplex::MyEntity::SharesDimension(MyEntity* const a_pOther)
+{
+
+	//special case: if there are no dimensions on either MyEntity
+	//then they live in the special global dimension
+	if (0 == m_nDimensionCount)
+	{
+		//if no spatial optimization all cases should fall here as every 
+		//entity is by default, under the special global dimension only
+		if (0 == a_pOther->m_nDimensionCount)
+			return true;
+	}
+
+	//for each dimension on both Entities we check if there is a common dimension
+	for (uint i = 0; i < m_nDimensionCount; ++i)
+	{
+		for (uint j = 0; j < a_pOther->m_nDimensionCount; j++)
+		{
+			if (m_DimensionArray[i] == a_pOther->m_DimensionArray[j])
+				return true; //as soon as we find one we know they share dimensionality
+		}
+	}
+
+	//could not find a common dimension
+	return false;
+}

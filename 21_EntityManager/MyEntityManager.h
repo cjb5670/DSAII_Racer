@@ -15,6 +15,8 @@ class MyEntityManager
 {
 	uint m_uEntityCount = 0; //number of elements in the list
 	static MyEntityManager* m_pInstance; // Singleton pointer
+	//typedef MyEntity* PEntity; //MyEntity Pointer
+	//PEntity* m_mEntityArray = nullptr; //array of MyEntity pointers
 	std::vector<MyEntity*> m_entityList; //entities list
 public:
 	/*
@@ -67,6 +69,12 @@ public:
 	OUTPUT: UniqueID of the entity, if the list is empty will return blank
 	*/
 	MyEntity* GetEntity(uint a_uIndex = -1);
+	/*
+	USAGE: Will return the count of Entities in the system
+	ARGUMENTS: ---
+	OUTPUT: MyEntity count
+	*/
+	uint GetEntityCount(void);
 	/*
 	USAGE: Will update the Entity manager
 	ARGUMENTS: ---
@@ -158,6 +166,32 @@ public:
 	*/
 	void AddEntityToRenderList(String a_sUniqueID, bool a_bRigidBody = false);
 	
+	/*
+	USAGE: Adds an octant
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void Simplex::MyEntityManager::AddDimension(uint a_uIndex, uint a_uDimension);
+	/*
+	USAGE: Adds an octant
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	void Simplex::MyEntityManager::AddDimension(String a_sUniqueID, uint a_uDimension);
+	/*
+	USAGE: Checks if the other shares the octant with the current
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	bool Simplex::MyEntityManager::SharesDimension(uint a_uIndex, MyEntity* const a_pOther);
+	/*
+	USAGE: Checks if the other shares the octant with the current
+	ARGUMENTS:
+	OUTPUT: ---
+	*/
+	bool Simplex::MyEntityManager::SharesDimension(String a_sUniqueID, MyEntity* const a_pOther);
+
+
 private:
 	/*
 	Usage: constructor
